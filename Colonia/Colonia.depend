@@ -1,0 +1,52 @@
+# depslib dependency file v1.0
+1543775920 source:d:\trabalhos\ic\colonia\main.cpp
+	<iostream>
+	"Solucao.h"
+	"Grafo.h"
+	<stdlib.h>
+	<vector>
+	<time.h>
+	<fstream>
+	<string>
+	"Input.h"
+
+1543772890 source:d:\trabalhos\ic\colonia\src\grafo.cpp
+	"Grafo.h"
+	<bits/stdc++.h>
+	<vector>
+
+1543670894 d:\trabalhos\ic\colonia\include\grafo.h
+	<vector>
+
+1543776209 source:d:\trabalhos\ic\colonia\src\solucao.cpp
+	"Solucao.h"
+	"Grafo.h"
+	<stdlib.h>
+	<vector>
+	<time.h>
+	<iostream>
+	<bits/stdc++.h>
+
+1543771212 d:\trabalhos\ic\colonia\include\solucao.h
+	"Grafo.h"
+	<vector>
+
+1543776030 source:d:\trabalhos\ic\colonia\src\input.cpp
+	"Input.h"
+	<fstream>
+	"Solucao.h"
+	"Grafo.h"
+	<stdlib.h>
+	<vector>
+	<time.h>
+	<iostream>
+
+1543771584 d:\trabalhos\ic\colonia\include\input.h
+	<fstream>
+	<string.h>
+	"Solucao.h"
+	"Grafo.h"
+	<stdlib.h>
+	<vector>
+	<time.h>
+
