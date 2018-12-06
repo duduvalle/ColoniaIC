@@ -50,3 +50,54 @@
 	<vector>
 	<time.h>
 
+1544016796 source:d:\trabalhos\ic\coloniaic\colonia\src\grafo.cpp
+	"Grafo.h"
+	<bits/stdc++.h>
+	<vector>
+
+1544016872 d:\trabalhos\ic\coloniaic\colonia\include\grafo.h
+	<vector>
+
+1544016105 source:d:\trabalhos\ic\coloniaic\colonia\main.cpp
+	<iostream>
+	"Solucao.h"
+	"Grafo.h"
+	<stdlib.h>
+	<vector>
+	<time.h>
+	<fstream>
+	<string>
+	"Input.h"
+
+1544016872 d:\trabalhos\ic\coloniaic\colonia\include\solucao.h
+	"Grafo.h"
+	<vector>
+
+1543771584 d:\trabalhos\ic\coloniaic\colonia\include\input.h
+	<fstream>
+	<string.h>
+	"Solucao.h"
+	"Grafo.h"
+	<stdlib.h>
+	<vector>
+	<time.h>
+
+1544028981 source:d:\trabalhos\ic\coloniaic\colonia\src\solucao.cpp
+	"Solucao.h"
+	"Grafo.h"
+	<stdlib.h>
+	<vector>
+	<time.h>
+	<iostream>
+	<bits/stdc++.h>
+
+1543794232 source:d:\trabalhos\ic\coloniaic\colonia\src\input.cpp
+	"Input.h"
+	<fstream>
+	"Solucao.h"
+	"Grafo.h"
+	<stdlib.h>
+	<vector>
+	<time.h>
+	<iostream>
+

@@ -35,15 +35,18 @@ void Iimprime(vector<vector<int> >gr)
 
 int main()
 {
+    int cont=0;
     time_t timeStart;
     vector <int> cand;
     double tim = 0;
     srand (time(NULL));
-    int type = 2;
-    string path = "instancias-Grupos/TipoD/20_5_A.txt";
+    int type = 1;
+    string path = "instancias-Grupos/TipoA/DCC136-82_02.txt";
     Input i;
     i.readInstance(path,type);
-    for(int g = 0; g < 10; g++)
+    tim = 0;
+    timeStart = clock();
+    while(tim<60)
     {
         for(int c = 0; c<5; c++)
         {
@@ -53,14 +56,15 @@ int main()
             i.buscaLocal(c);
         }
         i.s->melhorTodos();
+        i.s->buscaLocalM();
         i.s->evapora();
         i.s->atualizar();
         i.s->Clear();
+        tim = (double)((clock() - timeStart) / CLOCKS_PER_SEC);
+        cont++;
     }
-    timeStart = clock();
-    tim = (double)((clock() - timeStart) / CLOCKS_PER_SEC);
-    cout << i.s->calculo(i.s->melhorT) << endl;
-    cout << tim << endl;
+    cout << i.s->calculo(i.s->melhorT) <<" "<<cont<< endl;
     Iimprime(i.s->melhorT);
+    cout << endl <<i.s->verificarSolucao(i.s->melhorT);
     return 0;
 }

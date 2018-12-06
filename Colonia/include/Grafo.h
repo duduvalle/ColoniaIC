@@ -14,6 +14,7 @@ class Grafo
 
         float getF(int i, int j) { return fer[i][j]; }
         void setF(int i, int j, float val) { fer[i][j] = val; }
+        void inicializar();
 
         float getV(int i) { return vet[i]; }
         void setV(int i, float val) { vet[i] = val; }

@@ -35,9 +35,11 @@
 			<Add option="-fexceptions" />
 		</Compiler>
 		<Unit filename="include/Grafo.h" />
+		<Unit filename="include/Input.h" />
 		<Unit filename="include/Solucao.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/Grafo.cpp" />
+		<Unit filename="src/Input.cpp" />
 		<Unit filename="src/Solucao.cpp" />
 		<Extensions>
 			<code_completion />

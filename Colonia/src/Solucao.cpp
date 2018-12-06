@@ -31,6 +31,7 @@ Solucao::Solucao(int nn, int ng, float h, float l)
         vector<int> grupo;
         grupo.clear();
         inicial.push_back(grupo);
+        melhorT.push_back(grupo);
     }
 }
 
@@ -46,7 +47,7 @@ void Solucao::evapora()
     {
         for(int j = 0; j < n; j++)
         {
-            setFe(i,j,getFe(i,j)*0.95);
+            setFe(i,j,getFe(i,j)*0.997767);
             if(getFe(i,j)<100)
             {
                 setFe(i,j,100);
@@ -111,6 +112,8 @@ void Solucao::buscaLocal (int conjuntoF)
 {
     if (conjuntoF>=0 && conjuntoF<5)
     {
+        for(int a = 0; a <numeroG; a++ )
+            grupos[conjuntoF][a].clear();
         grupos[conjuntoF] = best[conjuntoF];
         unsigned int quantGrupos = grupos[conjuntoF].size();
         vector<int> cand;
@@ -166,7 +169,7 @@ void Solucao::buscaLocal (int conjuntoF)
             grupos[conjuntoF][melhorGrupo].push_back(can);
         }
 
-        if(calculo(grupos[conjuntoF])> calculo(best[conjuntoF]))
+        if(calculo(grupos[conjuntoF])> calculo(best[conjuntoF]) && verificarSolucao(grupos[conjuntoF]))
             best[conjuntoF] = grupos[conjuntoF];
     }
 }
@@ -262,21 +265,30 @@ void Solucao::contruirFormiga(vector <int> cand, int conjuntoF)
             }
         }
         float maior = ferV.back();
-        int rando = rand()%int(maior);
-        cout <<" " <<int(maior) <<" ";
-        for(unsigned int r = 0; r < qualGrupo.size() ; r++)
+        if(int(maior)==0)
         {
-            if(rando <= ferV[r])
+            if(qualGrupo.size() == 0)
             {
-                grupos[conjuntoF][qualGrupo[r]].push_back(can);
-                break;
+               return;
+            }
+            int rando = rand()%qualGrupo.size();
+            grupos[conjuntoF][qualGrupo[rando]].push_back(can);
+        }
+        else
+        {
+            int rando = rand()%int(maior);
+            for(unsigned int r = 0; r < qualGrupo.size() ; r++)
+            {
+                if(rando <= ferV[r])
+                {
+                    grupos[conjuntoF][qualGrupo[r]].push_back(can);
+                    break;
+                }
             }
         }
     }
-    cout << " eita ";
-    if(calculo(grupos[conjuntoF])> calculo(best[conjuntoF]))
+    if(calculo(grupos[conjuntoF])> calculo(best[conjuntoF])&& verificarSolucao(grupos[conjuntoF]))
         best[conjuntoF] = grupos[conjuntoF];
-    cout << calculo(grupos[conjuntoF]) << " " << calculo(best[conjuntoF]) << endl;
 }
 
 void Solucao::Clear()
@@ -289,6 +301,116 @@ void Solucao::Clear()
 void Solucao::melhorTodos ()
 {
     for (int i = 0; i < 5; i++)
-        if(calculo(best[i])> calculo(melhorT))
+        if(calculo(best[i]) > calculo(melhorT))
             melhorT = best[i];
+}
+
+bool Solucao::verificarSolucao(vector<vector<int> >gr)
+{
+    bool oi = true;
+    vector <int> nos;
+    int qNos = GetnumeroVe();
+    int x;
+    for(int i=0; i<qNos;i++)
+    {
+        nos.push_back(0);
+    }
+    float f;
+    for (int grupo = 0; grupo< numeroG; grupo++)
+    {
+        f=0;
+        for (unsigned int noG = 0; noG<gr[grupo].size(); noG++)
+        {
+            x = gr[grupo][noG];
+            f += getVe(x);
+            nos[x] += 1;
+        }
+        if(f>high || f<lower)
+        {
+            oi = false;
+        }
+    }
+    for(int i=0; i<qNos;i++)
+    {
+        if(nos[i] != 1)
+            oi = false;
+    }
+    return oi;
+}
+
+void Solucao::buscaLocalM()
+{
+    int conjuntoF = 0;
+    for(int a = 0; a <numeroG; a++ )
+        grupos[conjuntoF][a].clear();
+    grupos[conjuntoF] = melhorT;
+    unsigned int quantGrupos = grupos[conjuntoF].size();
+    vector<int> cand;
+    for(unsigned int grupo = 0;grupo < quantGrupos;grupo++)
+    {
+        int k;
+        if(grupos[conjuntoF][grupo].size() != 0)
+        {
+            k = rand()%grupos[conjuntoF][grupo].size();
+            int no = grupos[conjuntoF][grupo][k];
+            grupos[conjuntoF][grupo].erase(grupos[conjuntoF][grupo].begin()+k);
+            cand.push_back(no);
+        }
+    }
+    unsigned int sizeCand = cand.size();
+    vector < pair <int,float> > candOrdenar;
+    for (unsigned int i = 0; i < sizeCand; i++)
+    {
+        candOrdenar.push_back(make_pair(cand[i],g->getV(cand[i])));
+    }
+    sort(candOrdenar.begin(), candOrdenar.end(), sortbysecdesce);
+    cand.clear();
+    for (unsigned int i = 0; i < sizeCand; i++)
+    {
+        cand.push_back(candOrdenar[i].first);
+    }
+    for (unsigned int p = 0;p < sizeCand; p++)
+    {
+        int can = cand[p];
+        int melhorGrupo;
+        float aux;
+        float maior = 0;
+        for (unsigned int grupo = 0; grupo<quantGrupos; grupo++)
+        {
+            float f=0;
+            aux=0;
+            for (unsigned int noG = 0; noG<grupos[conjuntoF][grupo].size(); noG++)
+            {
+                f += getVe(grupos[conjuntoF][grupo][noG]);
+                aux += getMa(grupos[conjuntoF][grupo][noG],can);
+            }
+            if (f+getVe(can)<=high)
+            {
+                if(aux>=maior)
+                {
+                    maior = aux;
+                    melhorGrupo = grupo;
+                }
+            }
+        }
+        grupos[conjuntoF][melhorGrupo].push_back(can);
+    }
+    if(calculo(grupos[conjuntoF])> calculo(melhorT) && verificarSolucao(grupos[conjuntoF]))
+        melhorT = grupos[conjuntoF];
+}
+
+void Solucao::nova()
+{
+    for (int i = 0; i < 5; i++)
+        for(int a = 0; a <numeroG; a++ )
+        {
+            best[i][a].clear();
+            grupos[i][a].clear();
+        }
+    for(int a = 0; a <numeroG; a++ )
+    {
+        melhorT[a].clear();
+        inicial[a].clear();
+    }
+    g->inicializar();
 }

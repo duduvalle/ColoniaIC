@@ -16,12 +16,15 @@ class Solucao
 
         float calculo(vector<vector<int> >gr);
         void buscaLocal(int conjuntoF);
+        void buscaLocalM();
+        void nova();
         vector <int> construirInicial();
         float CalculoGV(int j, int v);
         void BestVG(vector<int> &cand, int gru);
         float verificaGrupoInicial(int gru);
         void Clear();
         void melhorTodos();
+        bool verificarSolucao(vector<vector<int> >gr);
 
         float getFe(int i, int j) { return g->getF(i,j); }
         void setFe(int i, int j, float val) { g->setF(i,j,val); }

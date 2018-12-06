@@ -51,3 +51,10 @@ vector <int> Grafo::Candidatos()
         x.push_back(cand[i].first);
     return x;
 }
+
+void Grafo::inicializar ()
+{
+    for(int i = 0; i < numeroNos; i++)
+        for(int j = 0; j < numeroNos; j++)
+            fer[i][j]=1000;
+}

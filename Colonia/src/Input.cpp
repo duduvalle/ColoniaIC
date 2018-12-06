@@ -106,7 +106,6 @@ void Input::construtivo(vector<int>cand, int conjuntoF)
 {
     for(int i = 0; i < 20; i++)
     {
-        cout << i << " ";
         s->contruirFormiga(cand,conjuntoF);
     }
 
