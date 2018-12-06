@@ -33,15 +33,15 @@ void Iimprime(vector<vector<int> >gr)
     cout << "}" << endl;
 }
 
-int main()
+int main(int argc, char **argv)
 {
     int cont=0;
     time_t timeStart;
     vector <int> cand;
     double tim = 0;
     srand (time(NULL));
-    int type = 1;
-    string path = "instancias-Grupos/TipoA/DCC136-82_02.txt";
+    int type = atoi(argv[2]);
+    string path = argv[1];
     Input i;
     i.readInstance(path,type);
     tim = 0;
